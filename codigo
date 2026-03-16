@@ -1,1 +1,18 @@
-primera version del proyecto:
+Creacion del menu:
+Console.WriteLine("Simulacion");
+Console.WriteLine("1.Evaluar nuevo contenido:");
+Console.WriteLine("2.Mostrar reglas del sistema:");
+Console.WriteLine("3.Mostrar estadisticas de la sesion:");
+string tipodecontenido;
+int duracion;
+int opcion;
+string clasificacion;
+double horaprogramada;
+string produccion;
+do
+{
+    Console.WriteLine("Elija la opcion");
+    opcion = int.Parse(Console.ReadLine());
+    switch (opcion)
+}
+while (true);
