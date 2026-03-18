@@ -1,0 +1,79 @@
+Console.WriteLine("Simulacion");
+Console.WriteLine("1.Evaluar nuevo contenido:");
+Console.WriteLine("2.Mostrar reglas del sistema:");
+Console.WriteLine("3.Mostrar estadisticas de la sesion:");
+string tipodecontenido;
+int duracion;
+int opcion;
+string clasificacion;
+double horaprogramada;
+string produccion;
+bool todopublico = false;
+bool mas13 = false;
+bool mas18 = false;
+string duracionportipo;
+int totalevaluados = 0;
+string impacto = "";
+bool rechazado = false;
+int rechazados = 0; 
+bool revision = false;
+int publicados = 0;
+bool salir = true;
+do
+
+{
+    Console.WriteLine("Elija la opcion");
+    opcion = int.Parse(Console.ReadLine());
+    switch (opcion)
+    {
+        case 1:
+            Console.Clear();
+            Console.WriteLine("Tipo de contenido (pelicula, serie, documental, evento en vivo)");
+            tipodecontenido = Console.ReadLine();
+            Console.WriteLine("Duracion en minutos");
+            duracion = int.Parse(Console.ReadLine());
+            Console.WriteLine("Clasificacion de edad (todo publico, +13, +18)");
+            clasificacion = Console.ReadLine();
+            Console.WriteLine("Hora programada 0 - 23");
+            horaprogramada = int.Parse(Console.ReadLine());
+            Console.WriteLine("Nivel de produccion (bajo, medio, alto)");
+            produccion = Console.ReadLine();
+            totalevaluados++;
+            Console.Clear();
+            Console.WriteLine("Simulacion");
+            Console.WriteLine("1.Evaluar nuevo contenido:");
+            Console.WriteLine("2.Mostrar reglas del sistema:");
+            Console.WriteLine("3.Mostrar estadisticas de la sesion:");
+           
+            break;
+        case 2:
+            Console.Clear();
+            Console.WriteLine("reglas xd");
+            Console.WriteLine("Presione cualquier tecla para salir");
+            var tecla = int.Parse(Console.ReadLine());
+            Console.Clear();
+            Console.WriteLine("Simulacion");
+            Console.WriteLine("1.Evaluar nuevo contenido:");
+            Console.WriteLine("2.Mostrar reglas del sistema:");
+            Console.WriteLine("3.Mostrar estadisticas de la sesion:");
+            break;
+        case 3:
+            Console.WriteLine("Total evaluados: " + totalevaluados);
+            Console.WriteLine("Publicados: " + publicados);
+            Console.WriteLine("Rechazados: " + rechazados);
+            Console.WriteLine("En revision: ");
+            Console.WriteLine("Impacto predominante: " + impacto);
+            break;
+        case 4:
+            totalevaluados = 0;
+            publicados = 0;
+            rechazados = 0;
+            //REVISION = 0
+            impacto = "";
+            break;
+        case 5:
+            salir = false;
+            break;
+    }
+}
+while (salir == true);
