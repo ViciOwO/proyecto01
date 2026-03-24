@@ -1,0 +1,160 @@
+//
+static void Menu()
+{
+    Console.WriteLine("--Proyecto--");
+    Console.WriteLine("");
+    Console.WriteLine("1.Evaluar nuevo contenido:");
+    Console.WriteLine("2.Mostrar reglas del sistema:");
+    Console.WriteLine("3.Mostrar estadisticas de la sesion:");
+    Console.WriteLine("4.Reiniciar las estadisticas");
+    Console.WriteLine("5.Salir");
+}
+Menu();
+string tipodecontenido;
+int duracion;
+int opcion;
+string clasificacion;
+double horaprogramada;
+string produccion;
+int enrevision = 0;
+int totalevaluados = 0;
+string impacto = "";
+int rechazados = 0; 
+int publicados = 0;
+bool salir = true;
+int impactoalto = 0;
+int impactomedio = 0;
+int impactobajo = 0;
+bool ajuste = false;
+do
+
+{
+    Console.WriteLine("Elija la opcion");
+    opcion = int.Parse(Console.ReadLine());
+    switch (opcion)
+    {
+        case 1:
+            Console.Clear();
+            Console.WriteLine("Tipo de contenido (pelicula, serie, documental, evento en vivo)");
+            tipodecontenido = Console.ReadLine().ToLower();
+            Console.WriteLine("Duracion en minutos");
+            duracion = int.Parse(Console.ReadLine());
+            Console.WriteLine("Clasificacion de edad (todo publico, +13, +18)");
+            clasificacion = Console.ReadLine();
+            Console.WriteLine("Hora programada 0 - 23");
+            horaprogramada = int.Parse(Console.ReadLine());
+            Console.WriteLine("Nivel de produccion (bajo, medio, alto)");
+            produccion = Console.ReadLine();
+            //
+            bool valido = true;
+            string razon = "";
+            if (clasificacion == "+13" && (horaprogramada < 6 || horaprogramada > 22))
+            {
+                ajuste = true;// horario no permitido para +13
+                razon = "Horario no permitido para +13";
+            }
+            else if (clasificacion == "+18" && !(horaprogramada > 22 || horaprogramada <= 5))
+            {
+                ajuste = true; // horario no perimitido para +18
+                razon = "Horario no valido para +18";
+            }
+            //valiidacion de la duracion
+            if (valido == true)
+            {
+                if ((tipodecontenido == "pelicula" && (duracion < 60 || duracion > 180)) ||
+                (tipodecontenido == "serie" && (duracion < 20 || duracion > 90)) ||
+                (tipodecontenido == "documental" && (duracion < 30 || duracion > 120)) ||
+                (tipodecontenido == "evento en vivo" && (duracion < 30 || duracion > 240)))
+                {
+                    valido = false; // duracion fuera de rango
+                    razon = "Duracion fuera de rango";
+                }
+            }
+            //produccion
+            if (valido == true && produccion == "bajo" && clasificacion == "+18")
+            {
+                valido = false; // producion baja no valida para +18
+                razon = "Produccion baja no valido para +18";
+            }
+            if (valido == false)
+            {
+                rechazados++;
+                Console.WriteLine("Rechazado debido a: " + razon);
+            }
+            // impacto
+            if (produccion == "alto" || duracion > 120 || (horaprogramada >= 20 && horaprogramada <= 23))
+            {
+                impacto = "Alto";
+                impactoalto++;
+            }
+            else if (produccion == "medio" || (duracion >= 60 && duracion <= 120))
+            {
+                impacto = "Medio";
+                impactomedio++;
+            }
+            else
+            {
+                impacto = "Bajo";
+                impactobajo++;
+            }
+            // DEcicion
+            if (ajuste == true)
+            {
+                Console.WriteLine("Publicar con los siguentes ajustes: " + razon);
+            }
+            else if (impacto == "Alto")
+            {
+                Console.WriteLine("Impacto alto: Enviar a revision");
+                enrevision++;
+            }
+            else
+            {
+                Console.WriteLine("Publicar: impacto " + impacto);
+                publicados++;
+            }
+            totalevaluados++;
+            var teclaa = Console.ReadLine();
+            Console.Clear();
+            Menu();
+            break;
+        case 2:
+            Console.Clear();
+            Console.WriteLine("Reglas de clasificación y horario \r\n• Todo público: cualquier hora \r\n• +13: entre 6 y 22 horas \r\n• +18: entre 22 y 5 horas \r\nReglas de duración por tipo \r\n• Película: 60–180 minutos \r\n• Serie: 20–90 minutos \r\n• Documental: 30–120 minutos \r\n• Evento en vivo: 30–240 minutos \r\nSi la duración está fuera del rango permitido, el contenido no cumple la validación técnica. \r\nReglas de producción \r\n• Producción baja solo válida para Todo público o +13 \r\n• Producción media o alta válida para cualquier clasificación");
+            Console.WriteLine("Presione cualquier tecla para salir:");
+            var tecla = Console.ReadLine();
+            Console.Clear();
+            Menu();
+            break;
+        case 3:
+            Console.Clear();
+            Console.WriteLine("Total evaluados: " + totalevaluados);
+            Console.WriteLine("Publicados: " + publicados);
+            Console.WriteLine("Rechazados: " + rechazados);
+            Console.WriteLine("En revision: " + enrevision);
+            Console.WriteLine("Impacto predominante: " + impacto);
+            Console.WriteLine("Presione cualquier tecla para salir");
+            var tecla2 = Console.ReadLine();
+            Console.Clear();
+            Menu();
+            break;
+        case 4:
+            Console.Clear();
+            totalevaluados = 0;
+            publicados = 0;
+            rechazados = 0;
+            enrevision = 0;
+            //REVISION = 0
+            impacto = "";
+            Menu();
+            break;
+        case 5:
+            salir = false;
+            break;
+        default:
+            Console.Clear();
+            Menu();
+            break;
+    }
+}
+while (salir == true);
+Console.WriteLine("Sesion terminada");
