@@ -58,6 +58,11 @@ do
                 ajuste = true; // horario no perimitido para +18
                 razon = "Horario no valido para +18";
             }
+            else
+            {
+                ajuste = false;
+                razon = "  ";
+            }
             //valiidacion de la duracion
             if (valido == true)
             {
@@ -112,8 +117,8 @@ do
                 Console.WriteLine("Publicar: impacto " + impacto);
                 publicados++;
             }
-            totalevaluados++;
             var teclaa = Console.ReadLine();
+            totalevaluados++;
             Console.Clear();
             Menu();
             break;
